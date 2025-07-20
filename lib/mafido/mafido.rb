@@ -51,7 +51,7 @@ module Mafido
 
 
   class Processor
-    class Substitues < Hash
+    class Substitutes < Hash
     end
 
     class Subroutine
@@ -60,8 +60,8 @@ module Mafido
         @processor = processor
         @input_file = ifile
         @output_file = ofile
-        @substitues = Substitues.new
-        @substitues.merge!(input: @input_file, output: @output_file)
+        @substitutes = Substitutes.new
+        @substitutes.merge!(input: @input_file, output: @output_file)
       end
 
       def inspect
@@ -72,7 +72,7 @@ module Mafido
       def shell_command
         unless @shell_command
           cmd_to_run = processor.command.dup
-          @substitues.each_pair do |k, v|
+          @substitutes.each_pair do |k, v|
             #cmd_to_run.gsub!(/\%#{k}\%/, "'%s'"%v)
             cmd_to_run.gsub!(/\%#{k}\%/, v.include?("'") ? %Q{"#{v}"} : %Q{'#{v}'})
           end
