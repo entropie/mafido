@@ -51,9 +51,6 @@ module Mafido
 
 
   class Processor
-    class ProcessQueue < Array
-    end
-
     class Substitues < Hash
     end
 
