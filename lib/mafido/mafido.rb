@@ -76,7 +76,8 @@ module Mafido
         unless @shell_command
           cmd_to_run = processor.command.dup
           @substitues.each_pair do |k, v|
-            cmd_to_run.gsub!(/\%#{k}\%/, "'%s'"%v)
+            #cmd_to_run.gsub!(/\%#{k}\%/, "'%s'"%v)
+            cmd_to_run.gsub!(/\%#{k}\%/, v.include?("'") ? %Q{"#{v}"} : %Q{'#{v}'})
           end
           @shell_command = cmd_to_run
         end
@@ -97,7 +98,7 @@ module Mafido
         stdout, stderr, status = Open3.capture3(shell_command)
         unless status.success?
           puts "-"*60
-          puts $stderr
+          puts stderr
         else
           log "removing input due to --remove `#{@input_file}'"
           FileUtils.rm_rf(@input_file, verbose: false)
