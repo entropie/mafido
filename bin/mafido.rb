@@ -36,7 +36,7 @@ OptionParser.new do |opts|
     options[:path] = path
   end
 
-  opts.on("-l", "--list", "list result") do
+  opts.on("-l", "--list", "list result (and do nothing else)") do
     f = Files.new(**options)
     collection = f.collect(**options)
     puts collection.files
@@ -63,7 +63,6 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-
 command =
   if !STDIN.tty? && !STDIN.eof?
     STDIN.read.strip
@@ -76,7 +75,6 @@ command =
 
 options[:command] = command
 puts "options: #{options.inspect}"
-
 
 f = Files.new(**options)
 collection = f.collect(**options)
