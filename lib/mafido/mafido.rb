@@ -41,8 +41,9 @@ module Mafido
       extension = kwargs[:extension]
 
       @collection = Collection.new
+
       if extension
-        @collection.push(*fileslist.grep(/\.#{extension}/))
+        @collection.push(*fileslist.grep(/\.#{extension}$/))
       end
       @collection
     end
@@ -97,8 +98,11 @@ module Mafido
           puts "-"*60
           puts stderr
         else
-          log "removing input due to --remove `#{@input_file}'"
-          FileUtils.rm_rf(@input_file, verbose: false)
+
+          if kwargs[:remove]
+            log "removing input due to --remove `#{@input_file}'"
+            FileUtils.rm_rf(@input_file, verbose: false)
+          end
         end
       end
     end
